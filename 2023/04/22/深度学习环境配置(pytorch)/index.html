@@ -8,16 +8,30 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>深度学习环境配置（pytorch) | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Windows下判断有无NVIDIA GPU检查任务管理器，如果GPU中带有NVIDIA字眼，说明有NVIDIA GPU">
+  <meta name="description" content="深度学习显卡与CUDACPU(Central Processing Unit) vs GPU(Graohics Processing Unit)  如下图所示，CPU中有大量的控制电路和缓存，计算能力(ALU)只是CPU中很小的一部分；而在GPU中有很多算术逻辑处理单元用于运算，只有很少的缓存。因此我们可以将图片放到GPU的处理单元进行运算，加速深度学习网络的训练。  下面简单介绍一下深度学习用到">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度学习环境配置（pytorch)">
 <meta property="og:url" content="http://example.com/2023/04/22/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Windows下判断有无NVIDIA GPU检查任务管理器，如果GPU中带有NVIDIA字眼，说明有NVIDIA GPU">
+<meta property="og:description" content="深度学习显卡与CUDACPU(Central Processing Unit) vs GPU(Graohics Processing Unit)  如下图所示，CPU中有大量的控制电路和缓存，计算能力(ALU)只是CPU中很小的一部分；而在GPU中有很多算术逻辑处理单元用于运算，只有很少的缓存。因此我们可以将图片放到GPU的处理单元进行运算，加速深度学习网络的训练。  下面简单介绍一下深度学习用到">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/1.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/2.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/3.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/4.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/5.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/6.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/7.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/8.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/9.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/10.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/11.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/12.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/13.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/14.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/15.png">
 <meta property="article:published_time" content="2023-04-22T03:26:28.000Z">
-<meta property="article:modified_time" content="2023-04-22T06:32:38.842Z">
+<meta property="article:modified_time" content="2023-04-22T12:30:00.339Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/1.png">
@@ -176,7 +190,114 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Windows下判断有无NVIDIA-GPU"><a href="#Windows下判断有无NVIDIA-GPU" class="headerlink" title="Windows下判断有无NVIDIA GPU"></a>Windows下判断有无NVIDIA GPU</h2><p>检查任务管理器，如果GPU中带有NVIDIA字眼，说明有NVIDIA GPU<br><img src="/./img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/1.png"></p>
+        <h2 id="深度学习显卡与CUDA"><a href="#深度学习显卡与CUDA" class="headerlink" title="深度学习显卡与CUDA"></a>深度学习显卡与CUDA</h2><p>CPU(Central Processing Unit) vs GPU(Graohics Processing Unit) </p>
+<p>如下图所示，CPU中有大量的控制电路和缓存，计算能力(ALU)只是CPU中很小的一部分；而在GPU中有很多算术逻辑处理单元用于运算，只有很少的缓存。因此我们可以将图片放到GPU的处理单元进行运算，加速深度学习网络的训练。</p>
+<p><img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/1.png" alt="CPU vs GPU" title="CPU vs GPU"></p>
+<p>下面简单介绍一下深度学习用到的显卡：</p>
+<ul>
+<li>显卡，主要用于在屏幕上显示图像，用于与视频、图像处理相关的任务</li>
+<li>主流的显卡分为独显（独立显卡）和核显（核心显卡），独显一般较大，性能更加强，深度学习中常用。核显，比较小，跟CPU合在一起，性能较低，但完全可以胜任日常工作</li>
+<li>在深度学习中使用的显卡一般都是NVIDIA的显卡，一般不用amd的显卡做深度学习</li>
+<li>有了CUDA，我们就可以使用NVIDIA显卡了。像pytorch，tensorflow这种深度学习库，可以通过调用CUDA这个库，把相关数据发送给GPU进行运算，以加速深度学习网络的训练<br><img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/2.png" alt="关系图"></li>
+</ul>
+<p>Windows下判断有无NVIDIA GPU:<br>检查任务管理器，如果GPU中带有NVIDIA字眼，说明有NVIDIA GPU<br><img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/3.png"></p>
+<h2 id="安装Anaconda"><a href="#安装Anaconda" class="headerlink" title="安装Anaconda"></a>安装Anaconda</h2><p>在配置深度学习环境的过程中，我们并不直接从python官网下载安装，更多的是安装Anaconda这个软件，那么Anaconda用什么作用呢？</p>
+<p>我们安装好Anaconda后，直接就有了一个python的环境，并且可以使用<code>conda install 包名</code>命令。此外，anaconda的虚拟环境功能是我们选择它的一个重要原因，我们可以利用anaconda在计算机上创建多个虚拟环境，类似于一个个的虚拟机，它们互不干扰。当我们经常需要用到不同版本的python解释器&#x2F;库时，我们可以在不同的虚拟环境中安装不同版本的解释器&#x2F;库，当我们需要用到某个版本时切换一下虚拟环境即可，而不必反复卸载重装。 </p>
+<p>安装:  </p>
+<ol>
+<li>到anaconda官网下载安装包：<a target="_blank" rel="noopener" href="https://www.anaconda.com/">https://www.anaconda.com/</a> </li>
+<li>也可以下载距今一两年左右的历史版本，比较稳定（<a target="_blank" rel="noopener" href="https://repo.anaconda.com/archive/">https://repo.anaconda.com/archive/</a>）。 注意安装anaconda后我们可以给不同的虚拟环境配置不同版本的python解释器，但python的版本小于等于安装的anaconda的python版本</li>
+<li>如果下载很慢的话可以右键赋值地址，粘贴到迅雷上下载</li>
+<li>安装路径最好全英文</li>
+<li>安装完成后，在开始菜单中找到anaconda，打开它的图形化界面。如果在environment中有base，说明安装成功<br><img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/4.png" alt="anaconda"></li>
+</ol>
+<p><img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/5.png" alt="安装成功"></p>
+<h2 id="创建虚拟环境"><a href="#创建虚拟环境" class="headerlink" title="创建虚拟环境"></a>创建虚拟环境</h2><p>什么是虚拟环境？打个比方，虚拟环境相当于一个工作室，它有序地管理这不同的包和库这些工具，当我们要做一个项目时就需要一个工作室。那为什么需要虚拟环境呢，一个直接的原因，例如我们一个项目要用pytorch开发，而另一个要用tensorflow开发，这样，我们可以创建两个虚拟环境，在里面分别安装pytorch和tensorflow，两个虚拟环境中的包和库不会互相冲突 </p>
+<p>为了创建虚拟环境，首相我们要为它取一个名字，这个名字最好有意义，方便我们以后看到它就知道它是做什么的。打开anaconda的命令行：<br><img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/6.png"></p>
+<ul>
+<li><p>使用<code>conda creat</code>指令创建虚拟新的虚拟环境<br>  <code>conda create -n 虚拟环境的名字 python=版本</code> </p>
+<p>  <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/7.png"> </p>
+<p>  在创建虚拟环境的过程中会下载一些包，它会问你是否继续，选择y。接下来等待环境创建完毕即可。新创建的虚拟环境位于ananconda安装目录的envs文件夹下。<br>  <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/8.png"></p>
+</li>
+<li><p>使用<code>conda env list</code>可以查看目前有哪些虚拟环境</p>
+</li>
+<li><p>虚拟环境创建好之后，使用<code>conda activate 虚拟环境名</code>切换虚拟环境，然后可以用<code>conda list</code>命令查看当前这歌虚拟环境下有哪些包</p>
+</li>
+<li><p>如果在创建虚拟环境时，下载包的速度很慢，可以使用<code>conda create -n 虚拟环境的名字 python=版本 -c 镜像地址</code>命令添加镜像加速 </p>
+<table>
+<thead>
+<tr>
+<th>镜像名</th>
+<th>用于创建虚拟环境的地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>清华镜像</td>
+<td><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main">https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main</a></td>
+</tr>
+<tr>
+<td>北京外国语大学镜像</td>
+<td><a target="_blank" rel="noopener" href="https://mirrors.bfsu.edu.cn/anaconda/pkgs/main">https://mirrors.bfsu.edu.cn/anaconda/pkgs/main</a></td>
+</tr>
+<tr>
+<td>阿里巴巴镜像</td>
+<td><a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/anaconda/pkgs/main">https://mirrors.aliyun.com/anaconda/pkgs/main</a></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>删除虚拟环境：<code>conda remove -n 虚拟环境名 --all</code></p>
+</li>
+</ul>
+<blockquote>
+<p>补充：conda的通道与镜像地址</p>
+<p>当我们使用<code>conda install xxx</code>或者<code>conda creat -n xxx</code>命令时，就会从一个叫做配置文件的地方去下载一些包，通道(channel)就在配置文件中，其实就相当于下载地址。当我们安装anaconda之后，就有一个默认的下载地址defaults，它是anaconda服务器的地址。当conda想要下载一些包，它就会去配置文件里面找有哪些下载地址，然后从这些地址去下载需要的内容。</p>
+<p>使用<code>conda config --get</code>或者<code>conda config --show</code>可用查看配置文件中有哪些通道</p>
+<p>但是defaults的下载地址在国外的服务器上，当我们的配置文件中只有defaults这个通道时，(在国内)使用conda下载一些包的时候就会很慢。于是我们可用通过在使用的命令后面添加<code>-c 通道地址</code>来告诉conda从指定的地址（国内的镜像地址）里面去找想要的包，例如<code>conda install xxx -c xxx</code>，但是这个镜像地址只会对当前这一条指令生效。</p>
+<p>我们也可以在配置文件里面添加一些镜像地址，当配置文件里面有多个地址是，conda会优先使用最新添加的通道地址。</p>
+<ul>
+<li>持久添加通道：<code>conda config --add channels 通道地址</code> </li>
+<li>删除通道：<code>conda config --remove channels 通道地址</code></li>
+</ul>
+<p>添加&#x2F;删除后可以通过<code>conda config --get</code>来查看</p>
+</blockquote>
+<h2 id="GPU与CUDA准备工作"><a href="#GPU与CUDA准备工作" class="headerlink" title="GPU与CUDA准备工作"></a>GPU与CUDA准备工作</h2><p>前面我们已经创建好了虚拟环境，但在安装pytorch包之前，我们还需要进行一些准备工作。进入<a target="_blank" rel="noopener" href="https://pytorch.org/">pytorch官网</a>，点击install后我们可以看到一些选择，其中一项是选择CUDA的版本，这一部分主要介绍如何配置CUDA和选择CUDA的版本。</p>
+<p><img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/9.png"></p>
+<p>整个CUDA涉及到三个方面的内容：硬件显卡（算力）、显卡驱动（cuda driver version）、cuda runtime version（上图中要选择的内容）。一定要让它们三个之间互相匹配，pytorch的GPU版本才能够运用显卡。<br><img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/10.png"></p>
+<p>显卡是一个硬件，需要有一个驱动才能够被我们计算机识别出来，在安装驱动的时候，会随着驱动安装一个叫做cuda driver的东西，cuda是可以让显卡进行并行运算的一个平台，当我们的计算机想利用显卡做一些并行运算的时候，它就可以通过cuda driver去操作显卡。但是对于pytorch或者一些其它软件来说，还得有一个cuda runtime才能去调用cuda driver里面的一些东西，进而去调用显卡去做一些加速运算。为了使上述三者能够协调工作，它们之间的版本需要满足：</p>
+<blockquote>
+<ol>
+<li>cuda runtime version ≤ cuda driver version (如果cuda runtime的版本较高的话，可能会增加新功能，当它调用cuda runtime时，可能会没有相应的功能)</li>
+<li>cuda runtime version支持显卡对应的算力</li>
+</ol>
+</blockquote>
+<p>了解上述三个的关系后，我们需要进行如下工作：</p>
+<blockquote>
+<ol>
+<li>确定自己显卡的算力</li>
+</ol>
+<ul>
+<li><p>首先通过驱动软件或者任务管理器确定自己的显卡型号 (NVIDIA GeForce MX350)<br>  <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/11.png"></p>
+</li>
+<li><p>google搜索cuda，点进Wikipedia后往下翻可以看到一张表格，找到上面显卡型号对应的算力（<a target="_blank" rel="noopener" href="https://www.xincanshu.com/">这个网站</a>里面输入显卡型号也可以查询）(6.1)<br>  <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/12.png"></p>
+</li>
+</ul>
+<ol start="2">
+<li>确定自己可选择的cuda runtime version<br>  根据下图确定cuda runtime version (8.0-12.0都可以)</li>
+</ol>
+<p>  <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/13.png"></p>
+<ol start="3">
+<li>进入<a target="_blank" rel="noopener" href="https://www.nvidia.cn/Download/index.aspx?lang=cn">NVIDIA官网</a>根据自己的显卡型号安装显卡驱动最新版本</li>
+</ol>
+<p>  <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/14.png"></p>
+<ol start="4">
+<li>查看自己的cuda driver version<br>  打开命令行窗口，输入<code>nvidia-smi</code>    (11.8)</li>
+</ol>
+<p>  <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/15.png"></p>
+<ol start="5">
+<li>最终确定适用的cuda runtime version，确保cuda driver version ≥ cuda runtime version</li>
+</ol>
+</blockquote>
+<h2 id="安装pytorch"><a href="#安装pytorch" class="headerlink" title="安装pytorch"></a>安装pytorch</h2><p>利用conda或者pip安装pytorch<br>进入<a target="_blank" rel="noopener" href="https://pytorch.org/">pytorch官网</a>，根据上一部分内容在可用的版本中选用最新的版本 </p>
 
       
 
