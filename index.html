@@ -152,31 +152,27 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-first-article" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-深度学习环境配置(pytorch)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2023/03/18/first-article/">first article</a>
+      <a class="article-title" href="/2023/04/22/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/">深度学习环境配置（pytorch)</a>
     </h1>
   
 
         
-        <a href="/2023/03/18/first-article/" class="archive-article-date">
-  	<time datetime="2023-03-18T09:24:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-03-18</time>
+        <a href="/2023/04/22/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/" class="archive-article-date">
+  	<time datetime="2023-04-22T03:26:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>内容</p>
-<hr>
-<h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><p>内容</p>
-<hr>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2>
+        
       
 
       
@@ -188,7 +184,89 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2023/03/18/first-article/">展开全文 >></a>
+          <a class="article-more-a" href="/2023/04/22/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-字符集与编码问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>字符集编码时使用的字符集和解码使用的字符集必须一致，否则会出现乱码问题。英文、数字一般不会乱码，因为很多字符集都兼容了ASCII编码。</p>
+<hr>
+<h2 id="常见字符集"><a href="#常见字符集" class="headerlink" title="常见字符集"></a>常见字符集</h2><h4 id="标准ASCII字符集"><a href="#标准ASCII字符集" class="headerlink" title="标准ASCII字符集"></a>标准ASCII字符集</h4><ul>
+<li><p>ASCII：美国信息交换标准代码，包括英文、符号等。</p>
+</li>
+<li><p>标准ASCII使用&#x3D;&#x3D;1个字节&#x3D;&#x3D;存储一个字符，&#x3D;&#x3D;首位是0&#x3D;&#x3D;，总共可表示128个字符。</p>
+</li>
+</ul>
+<h4 id="GBK（汉字内码扩展标准，国标）"><a href="#GBK（汉字内码扩展标准，国标）" class="headerlink" title="GBK（汉字内码扩展标准，国标）"></a>GBK（汉字内码扩展标准，国标）</h4><ul>
+<li><p>汉字编码字符集，包含了2万多个汉字等字符，GBK中一个中文字符编码成&#x3D;&#x3D;2个字节&#x3D;&#x3D;的形式存储。</p>
+</li>
+<li><p>GBK兼容了ASCII字符集。</p>
+</li>
+<li><p>GBK规定：汉字的&#x3D;&#x3D;第一个字节的第一位必须是1&#x3D;&#x3D;.</p>
+</li>
+</ul>
+<h4 id="Unicode字符集（同一码，也叫万国码）"><a href="#Unicode字符集（同一码，也叫万国码）" class="headerlink" title="Unicode字符集（同一码，也叫万国码）"></a>Unicode字符集（同一码，也叫万国码）</h4><ul>
+<li>Unicode是国际组织制定的，可以容纳世界上所有文字、符号的字符集。</li>
+</ul>
+<h5 id="UTF-32"><a href="#UTF-32" class="headerlink" title="UTF-32"></a>UTF-32</h5><ul>
+<li><p>&#x3D;&#x3D;4个字节&#x3D;&#x3D;表示一个字符 </p>
+</li>
+<li><p>占存储空间，通信效率低，基本不用。<br>对于ASCII码，需要在原有编码基础上在前面补3个字节的0；GBK字符需要在前面补2个字节的全0.</p>
+</li>
+</ul>
+<h5 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h5><ul>
+<li><p>UTF-8是Unicode字符集的一种编码方案，采取可变长的编码方案，共分四个长度区：1个字节，2个字节，3个字节，4个字节。</p>
+</li>
+<li><p>&#x3D;&#x3D;英文字符、数字等只占用1个字节（兼容标准ASCII编码，汉字字符占用3个字节&#x3D;&#x3D;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">UTF-8编码方式(二进制)：</span><br><span class="line">1个字节：0xxxxxxx (ASCII码) </span><br><span class="line">2个字节：110xxxxx 10xxxxxx</span><br><span class="line">3个字节：1110xxxx 10xxxxxx 10xxxxxx</span><br><span class="line">4个字节：11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>技术人员在开发时都应使用UTF-8编码：方便整合，防止乱码</p>
+</li>
+</ul>
+<hr>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/03/21/%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%8E%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/">展开全文 >></a>
         </p>
       
 
