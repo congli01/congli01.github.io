@@ -39,8 +39,14 @@
 <meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/22.png">
 <meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/23.png">
 <meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/24.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/25.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/26.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/27.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/28.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/29.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/30.png">
 <meta property="article:published_time" content="2023-04-22T03:26:28.000Z">
-<meta property="article:modified_time" content="2023-04-23T03:26:33.599Z">
+<meta property="article:modified_time" content="2023-04-23T10:01:34.079Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/1.png">
@@ -282,14 +288,13 @@
 <p>了解上述三个的关系后，我们需要进行如下工作：</p>
 <blockquote>
 <ol>
-<li><p>确定自己显卡的算力</p>
-<blockquote>
+<li>确定自己显卡的算力</li>
+</ol>
 <ul>
 <li>首先通过驱动软件或者任务管理器确定自己的显卡型号 (NVIDIA GeForce MX350)<br>  <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/11.png"></li>
 <li>google搜索cuda，点进Wikipedia后往下翻可以看到一张表格，找到上面显卡型号对应的算力（<a target="_blank" rel="noopener" href="https://www.xincanshu.com/">这个网站</a>里面输入显卡型号也可以查询）(6.1)<br>  <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/12.png"></li>
 </ul>
-</blockquote>
-</li>
+<ol start="2">
 <li><p>确定自己可选择的cuda runtime version<br>  根据下图确定cuda runtime version (8.0-12.0都可以)<br>  <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/13.png"></p>
 </li>
 <li><p>进入<a target="_blank" rel="noopener" href="https://www.nvidia.cn/Download/index.aspx?lang=cn">NVIDIA官网</a>根据自己的显卡型号安装显卡驱动最新版本<br>  <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/14.png"></p>
@@ -375,6 +380,25 @@
 </li>
 </ol>
 <h2 id="给下载的项目设置合适的虚拟环境"><a href="#给下载的项目设置合适的虚拟环境" class="headerlink" title="给下载的项目设置合适的虚拟环境"></a>给下载的项目设置合适的虚拟环境</h2><p>在上一部分已经介绍了在pycharm中新建一个项目如何选择虚拟环境，但是我们有的时候并不是新建项目，而是从网上下载一个项目再用pycharm打开它，这一部分就来介绍一下我们拿到这些项目代码或文件夹，怎么用pycharm打开它并进行合适的配置。</p>
+<p>以github上的项目为例<br><img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/25.png"></p>
+<ol>
+<li><p>首先下载项目。用<code>git clone</code>或者下载压缩包后解压。</p>
+</li>
+<li><p>打开PyCharm，找到项目位置并打开<br> <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/26.png"></p>
+<blockquote>
+<p>如果打开pycharm是下面的界面的话就按找下图步骤选择项目<br><img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/27.png"></p>
+</blockquote>
+</li>
+<li><p>有的项目因为有一个叫requirements.txt的文件，它里面写了这个项目中需要用到哪些包，我们在用pycharm打开这个项目时会跳出一个弹窗，问我们是否根据requirements.txt文件创建虚拟环境。但一般情况下我们都不按照这种方式创建虚拟环境，选择cancel即可。<br> <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/28.png"></p>
+</li>
+<li><p>点击File-&gt;Settings-&gt;Project-&gt;Python Interpreter，选择想要的python解释器后点击OK<br> <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/29.png"></p>
+</li>
+<li><p>打开requirements.txt，它会提示还有哪些包需要安装，点击安装即可<br> <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/30.png"></p>
+<blockquote>
+<p>如果我们的项目没有requirements.txt文件，我们可以先直接点击运行，它缺什么包就会报错，然后直接根据报错的信息用命令行安装相应的包</p>
+</blockquote>
+</li>
+</ol>
 
       
 
