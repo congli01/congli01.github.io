@@ -30,8 +30,17 @@
 <meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/13.png">
 <meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/14.png">
 <meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/15.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/16.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/17.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/18.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/19.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/20.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/21.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/22.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/23.png">
+<meta property="og:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/24.png">
 <meta property="article:published_time" content="2023-04-22T03:26:28.000Z">
-<meta property="article:modified_time" content="2023-04-22T12:30:00.339Z">
+<meta property="article:modified_time" content="2023-04-23T03:14:23.915Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/1.png">
@@ -294,10 +303,86 @@
 </ol>
 <p>  <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/15.png"></p>
 <ol start="5">
-<li>最终确定适用的cuda runtime version，确保cuda driver version ≥ cuda runtime version</li>
+<li>最终确定适用的cuda runtime version，确保cuda driver version ≥ cuda runtime version。（可以选择小于自己cuda driver version的最高版本，这里我们选择11.7）</li>
 </ol>
 </blockquote>
-<h2 id="安装pytorch"><a href="#安装pytorch" class="headerlink" title="安装pytorch"></a>安装pytorch</h2><p>利用conda或者pip安装pytorch<br>进入<a target="_blank" rel="noopener" href="https://pytorch.org/">pytorch官网</a>，根据上一部分内容在可用的版本中选用最新的版本 </p>
+<h2 id="安装pytorch"><a href="#安装pytorch" class="headerlink" title="安装pytorch"></a>安装pytorch</h2><p>安装pytorch需要安装pytorch,torchvison,torchaudio三个包 </p>
+<p>利用conda安装pytorch：</p>
+<ol>
+<li>进入<a target="_blank" rel="noopener" href="https://pytorch.org/">pytorch官网</a>，点击install，根据自己的情况进行选择后，复制最后一行的指令</li>
+</ol>
+<p><img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/16.png"> </p>
+<ol start="2">
+<li><p>打开anaconda的命令行，用<code>conda activate xxx</code>切换到要安装pytorch的虚拟环境</p>
+</li>
+<li><p>执行第1步复制好的指令，会显示需要下载的一些包，我们先检查这些包的版本是否正确后，输入y回车后继续执行<br> <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/17.png"></p>
+<p> 主要检查pytorch这一项，后面的py3.9表示适用于python3.9，cuda11.7是之前选择的cuda版本，cudnn是神经网络可以利用gpu加速的包（很多教程会要你单独安装cudnn，其实并不需要，pytorch现在已经将它集成进来了）</p>
+<blockquote>
+<p>由于pytorch的通道的服务器在国外，可能会出现下载速度非常慢的情况，可以<code>ctrl+c</code>关掉当前下载，在添加镜像源后重新进行下载（将之前命令中的<code>-c pytorch</code>改成<code>-c + 镜像地址</code>）</p>
+<table>
+<thead>
+<tr>
+<th>镜像名</th>
+<th>镜像地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>清华镜像</td>
+<td><a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/win-64/">https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/win-64/</a></td>
+</tr>
+<tr>
+<td>北京外国语大学镜像</td>
+<td><a target="_blank" rel="noopener" href="https://mirrors.bfsu.edu.cn/anaconda/cloud/pytorch/win-64/">https://mirrors.bfsu.edu.cn/anaconda/cloud/pytorch/win-64/</a></td>
+</tr>
+<tr>
+<td>阿里巴巴镜像</td>
+<td><a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/anaconda/cloud/pytorch/win-64">https://mirrors.aliyun.com/anaconda/cloud/pytorch/win-64</a></td>
+</tr>
+<tr>
+<td>南京大学镜像</td>
+<td><a target="_blank" rel="noopener" href="https://mirrors.nju.edu.cn/pub/anaconda/cloud/pytorch/win-64/">https://mirrors.nju.edu.cn/pub/anaconda/cloud/pytorch/win-64/</a></td>
+</tr>
+</tbody></table>
+</blockquote>
+</li>
+</ol>
+<h2 id="验证pytorch是否安装成功"><a href="#验证pytorch是否安装成功" class="headerlink" title="验证pytorch是否安装成功"></a>验证pytorch是否安装成功</h2><p>打开anaconda命令行窗口</p>
+<ol>
+<li><p><code>conda activate xxx</code>激活安装pytorch的虚拟环境 </p>
+</li>
+<li><p>输入<code>conda list</code>，看有没有pytorch或者torch</p>
+</li>
+<li><p>输入<code>python</code>，进入python解释器</p>
+</li>
+<li><p>输入<code>import torch</code></p>
+</li>
+<li><p>输入<code>torch.cuda.is_available()</code>，如果显示True，就说明pytorch安装成功</p>
+</li>
+</ol>
+<h2 id="安装PyCharm并进行配置"><a href="#安装PyCharm并进行配置" class="headerlink" title="安装PyCharm并进行配置"></a>安装PyCharm并进行配置</h2><ol>
+<li><p>下载PyCharm(<a target="_blank" rel="noopener" href="https://www.jetbrains.com/pycharm/">https://www.jetbrains.com/pycharm/</a>)：下载社区版即可，学生也可以免费申请专业版</p>
+</li>
+<li><p>安装PyCharm：安装路径中最好不要有中文字符，在安装选项中按下图勾选</p>
+<p> <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/18.png"></p>
+</li>
+<li><p>配置合适的python解释器<br> 我们的python项目，要运行起来就需要一个python解释器，在pycharm中新建项目时，它会我们先配置一个python解释器。接下来介绍一下如何配置python解释器。</p>
+<p> 打开PyCharm，点击New Project新建项目 </p>
+<p> <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/19.png"> </p>
+<p> 如果选择创建新的环境，它就需要重新下载一下包和库，所以我们一般选择使用之前已经配置好的虚拟环境</p>
+<p> <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/20.png"> </p>
+<p> 点击①下拉找到虚拟环境，再点击create即可</p>
+<p> <img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/21.png"></p>
+<blockquote>
+<p>如果点击①没有找到需要的环境，那么点击②，之后选择Conda Environment，它会自动检测我们之前创建虚拟环境</p>
+<p><img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/22.png"></p>
+<p>可以发现这里只有我们自己创建的虚拟环境，也就是envs底下的虚拟环境。但是我们在安装anaconda的时候有一个base虚拟环境，它位于我们的安装目录底下如果想添加base虚拟环境，PyCharm又没有检测到的话，我们可以按照下面步骤添加。</p>
+<p>首先确定你的虚拟环境位于什么地方（base在安装目录底下，自己创建的环境在安装目录的envs文件夹底下）,点击右边的按钮，找到anaconda的安装目录，下拉找到python.exe选中即可(如果要添加自己创建的虚拟环境，就选envs文件夹下面的对应环境中的python.exe)</p>
+<p><img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/23.png"></p>
+<p><img src="/../img/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/24.png"></p>
+</blockquote>
+</li>
+</ol>
+<h2 id="给下载的项目设置合适的虚拟环境"><a href="#给下载的项目设置合适的虚拟环境" class="headerlink" title="给下载的项目设置合适的虚拟环境"></a>给下载的项目设置合适的虚拟环境</h2><p>在上一部分已经介绍了在pycharm中新建一个项目如何选择虚拟环境，但是我们有的时候并不是新建项目，而是从网上下载一个项目再用pycharm打开它，这一部分就来介绍一下我们拿到这些项目代码或文件夹，怎么用pycharm打开它并进行合适的配置。</p>
 
       
 
