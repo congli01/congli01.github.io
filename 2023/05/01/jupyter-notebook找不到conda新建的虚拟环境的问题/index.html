@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2023 | Hexo</title>
+  <title>jupyter notebook找不到conda新建的虚拟环境的问题 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2023/index.html">
+  <meta name="description" content="问题描述在anaconda的命令行窗口用conda命令创建了虚拟环境cvenv，当切换到该虚拟环境，通过命令行打开jupyter notebook，在jupyter notebook中打开.ipynb文件时，找不到conda创建的虚拟环境的内核。 解决方案：将虚拟环境添加到jupyter notebook 切换到需要添加的虚拟环境中  安装ipykernel包 pip install --user">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jupyter notebook找不到conda新建的虚拟环境的问题">
+<meta property="og:url" content="http://example.com/2023/05/01/jupyter-notebook%E6%89%BE%E4%B8%8D%E5%88%B0conda%E6%96%B0%E5%BB%BA%E7%9A%84%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="问题描述在anaconda的命令行窗口用conda命令创建了虚拟环境cvenv，当切换到该虚拟环境，通过命令行打开jupyter notebook，在jupyter notebook中打开.ipynb文件时，找不到conda创建的虚拟环境的内核。 解决方案：将虚拟环境添加到jupyter notebook 切换到需要添加的虚拟环境中  安装ipykernel包 pip install --user">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/jupyter-notebook%E6%89%BE%E4%B8%8D%E5%88%B0conda%E6%96%B0%E5%BB%BA%E7%9A%84%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E9%97%AE%E9%A2%98/1.png">
+<meta property="og:image" content="http://example.com/img/jupyter-notebook%E6%89%BE%E4%B8%8D%E5%88%B0conda%E6%96%B0%E5%BB%BA%E7%9A%84%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E9%97%AE%E9%A2%98/2.png">
+<meta property="article:published_time" content="2023-05-01T07:44:04.000Z">
+<meta property="article:modified_time" content="2023-05-01T08:24:00.500Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/jupyter-notebook%E6%89%BE%E4%B8%8D%E5%88%B0conda%E6%96%B0%E5%BB%BA%E7%9A%84%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E9%97%AE%E9%A2%98/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,97 +157,173 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-jupyter-notebook找不到conda新建的虚拟环境的问题" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      jupyter notebook找不到conda新建的虚拟环境的问题
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/05/01/jupyter-notebook%E6%89%BE%E4%B8%8D%E5%88%B0conda%E6%96%B0%E5%BB%BA%E7%9A%84%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E9%97%AE%E9%A2%98/" class="archive-article-date">
+
+        
+        <a href="/2023/05/01/jupyter-notebook%E6%89%BE%E4%B8%8D%E5%88%B0conda%E6%96%B0%E5%BB%BA%E7%9A%84%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E9%97%AE%E9%A2%98/" class="archive-article-date">
   	<time datetime="2023-05-01T07:44:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-05-01</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/05/01/jupyter-notebook%E6%89%BE%E4%B8%8D%E5%88%B0conda%E6%96%B0%E5%BB%BA%E7%9A%84%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E9%97%AE%E9%A2%98/">jupyter notebook找不到conda新建的虚拟环境的问题</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在anaconda的命令行窗口用conda命令创建了虚拟环境cvenv，当切换到该虚拟环境，通过命令行打开jupyter notebook，在jupyter notebook中打开.ipynb文件时，找不到conda创建的虚拟环境的内核。<br><img src="/../img/jupyter-notebook%E6%89%BE%E4%B8%8D%E5%88%B0conda%E6%96%B0%E5%BB%BA%E7%9A%84%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E9%97%AE%E9%A2%98/1.png"></p>
+<h2 id="解决方案：将虚拟环境添加到jupyter-notebook"><a href="#解决方案：将虚拟环境添加到jupyter-notebook" class="headerlink" title="解决方案：将虚拟环境添加到jupyter notebook"></a>解决方案：将虚拟环境添加到jupyter notebook</h2><ol>
+<li><p>切换到需要添加的虚拟环境中</p>
+</li>
+<li><p>安装ipykernel包<br> <code>pip install --user ipykernel</code></p>
+</li>
+<li><p>将虚拟环境添加到jupyter<br> <code>python -m ipykernel install --user --name=xxx</code></p>
+<p> 如果输出<br> <code>Installed kernelspec xxx in /home/user/.local/share/jupyter/kernels/mypytorch</code><br> 说明操作成功</p>
+<p> 再次打开jupyter notebook就可以使用新加的这个虚拟环境了<br> <img src="/../img/jupyter-notebook%E6%89%BE%E4%B8%8D%E5%88%B0conda%E6%96%B0%E5%BB%BA%E7%9A%84%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E9%97%AE%E9%A2%98/2.png"></p>
+</li>
+</ol>
+<blockquote>
+<p><strong>关于jupyter notebook虚拟环境的一些其它操作</strong></p>
+<ol>
+<li>查看jupyter notebook中有哪些虚拟环境kernel<br>  <code>jupyter kernelspec list</code></li>
+<li>删除指定的kernel<br>  <code>jupyter kernelspec uninstall xxx</code></li>
+</ol>
+</blockquote>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2023/05/01/jupyter-notebook%E6%89%BE%E4%B8%8D%E5%88%B0conda%E6%96%B0%E5%BB%BA%E7%9A%84%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E9%97%AE%E9%A2%98/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/04/22/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/" class="archive-article-date">
-  	<time datetime="2023-04-22T03:26:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-04-22</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2023/04/22/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">深度学习环境配置（pytorch)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2023/04/22/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE(pytorch)/">深度学习环境配置（pytorch)</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2023/03/21/%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%8E%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2023-03-21T05:02:37.075Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-03-21</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -263,8 +346,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

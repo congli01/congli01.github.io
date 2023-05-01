@@ -152,6 +152,86 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-jupyter-notebook找不到conda新建的虚拟环境的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/05/01/jupyter-notebook%E6%89%BE%E4%B8%8D%E5%88%B0conda%E6%96%B0%E5%BB%BA%E7%9A%84%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E9%97%AE%E9%A2%98/">jupyter notebook找不到conda新建的虚拟环境的问题</a>
+    </h1>
+  
+
+        
+        <a href="/2023/05/01/jupyter-notebook%E6%89%BE%E4%B8%8D%E5%88%B0conda%E6%96%B0%E5%BB%BA%E7%9A%84%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E9%97%AE%E9%A2%98/" class="archive-article-date">
+  	<time datetime="2023-05-01T07:44:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-05-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在anaconda的命令行窗口用conda命令创建了虚拟环境cvenv，当切换到该虚拟环境，通过命令行打开jupyter notebook，在jupyter notebook中打开.ipynb文件时，找不到conda创建的虚拟环境的内核。<br><img src="/../img/jupyter-notebook%E6%89%BE%E4%B8%8D%E5%88%B0conda%E6%96%B0%E5%BB%BA%E7%9A%84%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E9%97%AE%E9%A2%98/1.png"></p>
+<h2 id="解决方案：将虚拟环境添加到jupyter-notebook"><a href="#解决方案：将虚拟环境添加到jupyter-notebook" class="headerlink" title="解决方案：将虚拟环境添加到jupyter notebook"></a>解决方案：将虚拟环境添加到jupyter notebook</h2><ol>
+<li><p>切换到需要添加的虚拟环境中</p>
+</li>
+<li><p>安装ipykernel包<br> <code>pip install --user ipykernel</code></p>
+</li>
+<li><p>将虚拟环境添加到jupyter<br> <code>python -m ipykernel install --user --name=xxx</code></p>
+<p> 如果输出<br> <code>Installed kernelspec xxx in /home/user/.local/share/jupyter/kernels/mypytorch</code><br> 说明操作成功</p>
+<p> 再次打开jupyter notebook就可以使用新加的这个虚拟环境了<br> <img src="/../img/jupyter-notebook%E6%89%BE%E4%B8%8D%E5%88%B0conda%E6%96%B0%E5%BB%BA%E7%9A%84%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E9%97%AE%E9%A2%98/2.png"></p>
+</li>
+</ol>
+<blockquote>
+<p><strong>关于jupyter notebook虚拟环境的一些其它操作</strong></p>
+<ol>
+<li>查看jupyter notebook中有哪些虚拟环境kernel<br>  <code>jupyter kernelspec list</code></li>
+<li>删除指定的kernel<br>  <code>jupyter kernelspec uninstall xxx</code></li>
+</ol>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/05/01/jupyter-notebook%E6%89%BE%E4%B8%8D%E5%88%B0conda%E6%96%B0%E5%BB%BA%E7%9A%84%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E9%97%AE%E9%A2%98/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-深度学习环境配置(pytorch)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
