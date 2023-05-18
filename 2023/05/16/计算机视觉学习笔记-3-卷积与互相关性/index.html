@@ -1,0 +1,328 @@
+<!DOCTYPE html><html lang="zh_CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>计算机视觉学习笔记-3-卷积与互相关性 | Ricco</title><meta name="author" content="Ricco,congli200110@gmail.com"><meta name="copyright" content="Ricco"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="卷积（convolution）与互相关性（correlation）具有相似的数学表达式，但二者的实际意义却完全不同。卷积的意义是一个输入进入一个系统后，得到一个输出，这个输出可以看成是输入与脉冲响应进行卷积的结果。互相关性的意义为给出两个信号，衡量它们之间的相似度。 卷积将图像表示成函数对于一个图像，可以将其表示成一个函数$f:R^2 \rightarrow R^N$,f(x,y)表示的含义为图像">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机视觉学习笔记-3-卷积与互相关性">
+<meta property="og:url" content="https://congli01.github.io/2023/05/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-%E5%8D%B7%E7%A7%AF%E4%B8%8E%E4%BA%92%E7%9B%B8%E5%85%B3%E6%80%A7/index.html">
+<meta property="og:site_name" content="Ricco">
+<meta property="og:description" content="卷积（convolution）与互相关性（correlation）具有相似的数学表达式，但二者的实际意义却完全不同。卷积的意义是一个输入进入一个系统后，得到一个输出，这个输出可以看成是输入与脉冲响应进行卷积的结果。互相关性的意义为给出两个信号，衡量它们之间的相似度。 卷积将图像表示成函数对于一个图像，可以将其表示成一个函数$f:R^2 \rightarrow R^N$,f(x,y)表示的含义为图像">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://congli01.github.io/img/profile.jpeg">
+<meta property="article:published_time" content="2023-05-16T07:49:07.000Z">
+<meta property="article:modified_time" content="2023-05-18T08:34:59.662Z">
+<meta property="article:author" content="Ricco">
+<meta property="article:tag" content="cv">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://congli01.github.io/img/profile.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://congli01.github.io/2023/05/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-%E5%8D%B7%E7%A7%AF%E4%B8%8E%E4%BA%92%E7%9B%B8%E5%85%B3%E6%80%A7/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '计算机视觉学习笔记-3-卷积与互相关性',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-18 16:34:59'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/profile.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Ricco"><img class="site-icon" src="/img/profile.jpeg"/></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">计算机视觉学习笔记-3-卷积与互相关性</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-05-16T07:49:07.000Z" title="Created 2023-05-16 15:49:07">2023-05-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-05-18T08:34:59.662Z" title="Updated 2023-05-18 16:34:59">2023-05-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">计算机视觉</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="计算机视觉学习笔记-3-卷积与互相关性"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>卷积（convolution）与互相关性（correlation）具有相似的数学表达式，但二者的实际意义却完全不同。卷积的意义是一个输入进入一个系统后，得到一个输出，这个输出可以看成是输入与脉冲响应进行卷积的结果。互相关性的意义为给出两个信号，衡量它们之间的相似度。</p>
+<h1 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h1><h2 id="将图像表示成函数"><a href="#将图像表示成函数" class="headerlink" title="将图像表示成函数"></a>将图像表示成函数</h2><p>对于一个图像，可以将其表示成一个函数$f:R^2 \rightarrow R^N$,f(x,y)表示的含义为图像在点(x,y)处的强度。</p>
+<p>例如一个彩色图像，可以将其表示为:</p>
+<script type="math/tex; mode=display">
+f(x,y) = 
+    \left[
+    \begin{matrix}
+    r(x,y) \\
+    g(x,y) \\
+    b(x,y)
+    \end{matrix}
+    \right]</script><h2 id="线性系统（过滤器）"><a href="#线性系统（过滤器）" class="headerlink" title="线性系统（过滤器）"></a>线性系统（过滤器）</h2><p>滤波：根据原始图像形成一个新图像，其像素值是从原始值转换而来的。</p>
+<p>进行滤波操作的目的</p>
+<ul>
+<li>从图像中提取特征，如边缘，拐点，斑点等</li>
+<li>修改或增强图像属性，如超分辨率，去噪等</li>
+</ul>
+<hr>
+<p>系统S：将输入f映射到输出g。表示为：</p>
+<p>$f[m,n] \rightarrow system S \rightarrow g[m,n]或者g=S[f]或者g[m,n]=S{f[m,n]}或者f[m,n]\stackrel{S}{\longrightarrow}g[m,n]$</p>
+<p>例1，对图像进行平滑操作：</p>
+<p><img src="/2023/05/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-%E5%8D%B7%E7%A7%AF%E4%B8%8E%E4%BA%92%E7%9B%B8%E5%85%B3%E6%80%A7/1.png" alt="1"></p>
+<p>相当于对表示图像的函数进行了：</p>
+<p><img src="/2023/05/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-%E5%8D%B7%E7%A7%AF%E4%B8%8E%E4%BA%92%E7%9B%B8%E5%85%B3%E6%80%A7/2.png" alt="2"></p>
+<p>这里操作相当于将图像的每一个像素值转换成了周围几个像素值的平均值，实现了平滑的效果。</p>
+<p>例2，图像分割：</p>
+<p><img src="/2023/05/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-%E5%8D%B7%E7%A7%AF%E4%B8%8E%E4%BA%92%E7%9B%B8%E5%85%B3%E6%80%A7/3.png" alt="3"></p>
+<hr>
+<p>线性平移不变系统（Linear Shift Invariant systems）：</p>
+<p>线性：$S{\alpha f_1[n,m] + \beta f_2[n,m]} = \alpha S{f_1[n,m]} + \beta S{f_2[n,m]}$</p>
+<p>平移不变性：$f[n-n_0, m-m_0] \stackrel{S}{\longrightarrow} g[n-n_0, m-m_0]$</p>
+<p>二维脉冲函数</p>
+<script type="math/tex; mode=display">
+\begin{equation} 
+\delta_2[m,n]=
+\left\{ 
+\begin{aligned}
+1,m=n=0 \\
+0, otherwise\\
+\end{aligned} 
+\right . 
+\end{equation}</script><p>一个线性平移不变系统，可以完全由一个脉冲响应h来表示，即：</p>
+<script type="math/tex; mode=display">
+\delta_2[n,m]  \stackrel{S}{\longrightarrow} h[n,m]</script><p>对于函数f，以一个3*3的图像为例，我们可以将其表示为下面形式：</p>
+<p><img src="/2023/05/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-%E5%8D%B7%E7%A7%AF%E4%B8%8E%E4%BA%92%E7%9B%B8%E5%85%B3%E6%80%A7/4.png" alt="image-20230518151223702"></p>
+<p>推广到一般情况有</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+f[n,m] = \sum_{k=-\infty}^\infty \sum_{l=-\infty}^\infty f[k,l] \cdot \delta_2[n-k,m-l]
+\end{equation}</script><p>对于$f_[n,m] \stackrel{S}{\longrightarrow} g[n,m]$，利用系统S的线性特征和平移不变性可以得到：</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+\begin{aligned}
+f[n,m] &= \sum_{k=-\infty}^\infty \sum_{l=-\infty}^\infty f[k,l] \cdot \delta_2[n-k,m-l] \\
+&\xrightarrow[线性]{S} \sum_{k=-\infty}^\infty \sum_{l=-\infty}^\infty f[k,l] \cdot S\{\delta_2[n-k,m-l]\} \\
+&\xrightarrow{平移不变性} \sum_{k=-\infty}^\infty \sum_{l=-\infty}^\infty f[k,l] \cdot h[n-k,m-l]
+\end{aligned}
+\end{equation}</script><p>于是可以引出卷积的定义：</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+\begin{aligned}
+f[n,m]*h[n,m] &= (f*h)[n,m] \\
+&= \sum_{k=-\infty}^\infty \sum_{l=-\infty}^\infty f[k,l] \cdot h[n-k,m-l]
+\end{aligned}
+\end{equation}</script><p>卷积操作可以用于提取图像的特征，可以根据需要的特征选择h.</p>
+<hr>
+<p>卷积的计算</p>
+<p>对图像上任意一点[n,m]，有：</p>
+<p><img src="/2023/05/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-%E5%8D%B7%E7%A7%AF%E4%B8%8E%E4%BA%92%E7%9B%B8%E5%85%B3%E6%80%A7/5.png" alt="image-20230518153456374"></p>
+<p>由上图可以看到，我们还需要通过h[k,l]得到h[n-k,m-l]：</p>
+<p><img src="/2023/05/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-%E5%8D%B7%E7%A7%AF%E4%B8%8E%E4%BA%92%E7%9B%B8%E5%85%B3%E6%80%A7/6.png" alt="image-20230518153858787"></p>
+<p>于是上式可以进一步表示为：</p>
+<p><img src="/2023/05/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-%E5%8D%B7%E7%A7%AF%E4%B8%8E%E4%BA%92%E7%9B%B8%E5%85%B3%E6%80%A7/7.png" alt="image-20230518154050172"></p>
+<p>由上面的推导可以得出卷积的算法流程</p>
+<ul>
+<li>将卷积核h[k,l]进行翻转操作，得到h[-k,-l]</li>
+<li>平移得到h[n-k, m-l]</li>
+<li>求每一个h[n-k, m-l]与f[k,l]的乘积，将它们的和作为输出在[n,m]点的值</li>
+<li>对每个n和m重复上述步骤</li>
+</ul>
+<blockquote>
+<p>注意：在实际的运用当中，很多情况下我们使用到的“卷积”是不进行翻转操作的</p>
+</blockquote>
+<h2 id="卷积的实现"><a href="#卷积的实现" class="headerlink" title="卷积的实现"></a>卷积的实现</h2><h3 id="使用四层嵌套循环的简单实现"><a href="#使用四层嵌套循环的简单实现" class="headerlink" title="使用四层嵌套循环的简单实现"></a>使用四层嵌套循环的简单实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">conv_nested</span>(<span class="params">image, kernel</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;A naive implementation of convolution filter.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    This is a naive implementation of convolution using 4 nested for-loops.</span></span><br><span class="line"><span class="string">    This function computes convolution of an image with a kernel and outputs</span></span><br><span class="line"><span class="string">    the result that has the same shape as the input image.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        image: numpy array of shape (Hi, Wi).</span></span><br><span class="line"><span class="string">        kernel: numpy array of shape (Hk, Wk). Dimensions will be odd.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        out: numpy array of shape (Hi, Wi).</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    Hi, Wi = image.shape</span><br><span class="line">    Hk, Wk = kernel.shape</span><br><span class="line">    out = np.zeros((Hi, Wi))</span><br><span class="line"></span><br><span class="line">    <span class="comment">### YOUR CODE HERE</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, Hi):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, Wi):</span><br><span class="line">            <span class="keyword">for</span> u <span class="keyword">in</span> <span class="built_in">range</span>(-<span class="built_in">int</span>(Hk / <span class="number">2</span>), <span class="built_in">int</span>(Hk / <span class="number">2</span>) + <span class="number">1</span>):</span><br><span class="line">                <span class="keyword">for</span> v <span class="keyword">in</span> <span class="built_in">range</span>(-<span class="built_in">int</span>(Wk / <span class="number">2</span>), <span class="built_in">int</span>(Wk / <span class="number">2</span>) + <span class="number">1</span>):</span><br><span class="line">                    imgX = i - u</span><br><span class="line">                    imgY = j - v</span><br><span class="line">                    <span class="keyword">if</span> imgX &lt; <span class="number">0</span> <span class="keyword">or</span> imgY &lt; <span class="number">0</span> <span class="keyword">or</span> imgX &gt;= Hi <span class="keyword">or</span> imgY &gt;= Wi:</span><br><span class="line">                        <span class="keyword">continue</span></span><br><span class="line">                    out[i, j] = out[i, j] + image[imgX, imgY] * kernel[u + <span class="built_in">int</span>(Hk / <span class="number">2</span>), v + <span class="built_in">int</span>(Wk / <span class="number">2</span>)]</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">    <span class="comment">### END YOUR CODE</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure>
+<h3 id="一个更快的实现"><a href="#一个更快的实现" class="headerlink" title="一个更快的实现"></a>一个更快的实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">zero_pad</span>(<span class="params">image, pad_height, pad_width</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot; Zero-pad an image.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Ex: a 1x1 image [[1]] with pad_height = 1, pad_width = 2 becomes:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        [[0, 0, 0, 0, 0],</span></span><br><span class="line"><span class="string">         [0, 0, 1, 0, 0],</span></span><br><span class="line"><span class="string">         [0, 0, 0, 0, 0]]         of shape (3, 5)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        image: numpy array of shape (H, W).</span></span><br><span class="line"><span class="string">        pad_width: width of the zero padding (left and right padding).</span></span><br><span class="line"><span class="string">        pad_height: height of the zero padding (bottom and top padding).</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        out: numpy array of shape (H+2*pad_height, W+2*pad_width).</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    H, W = image.shape</span><br><span class="line">    out = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">### YOUR CODE HERE</span></span><br><span class="line">    out = np.zeros((H + <span class="number">2</span> * pad_height, W + <span class="number">2</span> * pad_width))</span><br><span class="line">    <span class="comment"># 方法一：逐个对每个元素赋值</span></span><br><span class="line">    <span class="comment"># for i in range(0, H):</span></span><br><span class="line">    <span class="comment">#     for j in range(0, W):</span></span><br><span class="line">    <span class="comment">#         out[pad_height + i, pad_width + j] = image[i, j]</span></span><br><span class="line">    out[pad_height:pad_height + H, pad_width:pad_width + W] = image</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">    <span class="comment">### END YOUR CODE</span></span><br><span class="line">    <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">conv_fast</span>(<span class="params">image, kernel</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot; An efficient implementation of convolution filter.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    This function uses element-wise multiplication and np.sum()</span></span><br><span class="line"><span class="string">    to efficiently compute weighted sum of neighborhood at each</span></span><br><span class="line"><span class="string">    pixel.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Hints:</span></span><br><span class="line"><span class="string">        - Use the zero_pad function you implemented above</span></span><br><span class="line"><span class="string">        - There should be two nested for-loops</span></span><br><span class="line"><span class="string">        - You may find np.flip() and np.sum() useful</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        image: numpy array of shape (Hi, Wi).</span></span><br><span class="line"><span class="string">        kernel: numpy array of shape (Hk, Wk). Dimensions will be odd.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        out: numpy array of shape (Hi, Wi).</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    Hi, Wi = image.shape</span><br><span class="line">    Hk, Wk = kernel.shape</span><br><span class="line">    out = np.zeros((Hi, Wi))</span><br><span class="line"></span><br><span class="line">    <span class="comment">### YOUR CODE HERE</span></span><br><span class="line">    <span class="comment"># 翻转卷积核</span></span><br><span class="line">    image = zero_pad(image, Hk // <span class="number">2</span>, Wk // <span class="number">2</span>)</span><br><span class="line">    kernel = np.flip(kernel, <span class="number">0</span>)</span><br><span class="line">    kernel = np.flip(kernel, <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> m <span class="keyword">in</span> <span class="built_in">range</span>(Hi):</span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(Wi):</span><br><span class="line">            out[m, n] = np.<span class="built_in">sum</span>(image[m: m + Hk, n: n + Wk] * kernel)</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">    <span class="comment">### END YOUR CODE</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="互相关性"><a href="#互相关性" class="headerlink" title="互相关性"></a>互相关性</h1><script type="math/tex; mode=display">
+\begin{equation}
+\begin{aligned}
+f[n,m]**h[n,m] &= (f**h)[n,m] \\
+&= \sum_{k=-\infty}^\infty \sum_{l=-\infty}^\infty f[k,l] \cdot h[n+k,m+l]
+\end{aligned}
+\end{equation}</script><ul>
+<li>互相关性在形式上相当于没有进行卷积核翻转的卷积操作</li>
+<li>可以用它来衡量f与h之间的相似度</li>
+</ul>
+<h2 id="互相关性的实现"><a href="#互相关性的实现" class="headerlink" title="互相关性的实现"></a>互相关性的实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">cross_correlation</span>(<span class="params">f, g</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot; Cross-correlation of image f and template g.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Hint: use the conv_fast function defined above.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        f: numpy array of shape (Hf, Wf).</span></span><br><span class="line"><span class="string">        g: numpy array of shape (Hg, Wg).</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        out: numpy array of shape (Hf, Wf).</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    out = <span class="literal">None</span></span><br><span class="line">    <span class="comment">### YOUR CODE HERE</span></span><br><span class="line">    g = np.flip(g, <span class="number">0</span>)</span><br><span class="line">    g = np.flip(g, <span class="number">1</span>)</span><br><span class="line">    out = conv_fast(f, g)</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">    <span class="comment">### END YOUR CODE</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure>
+<p>当使用互相关性进行模板匹配时算法的结果会受到匹配区域强度的影响。匹配区域强度越高，输出值也越高。用原始图像作为卷积核各元素相加结果较小，而直接用灰度图片作为卷积核计算，结果趋于255。</p>
+<hr>
+<p>上述问题可以通过零均值互相关性来解决：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">zero_mean_cross_correlation</span>(<span class="params">f, g</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot; Zero-mean cross-correlation of image f and template g.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Subtract the mean of g from g so that its mean becomes zero.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Hint: you should look up useful numpy functions online for calculating the mean.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        f: numpy array of shape (Hf, Wf).</span></span><br><span class="line"><span class="string">        g: numpy array of shape (Hg, Wg).</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        out: numpy array of shape (Hf, Wf).</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    out = <span class="literal">None</span></span><br><span class="line">    <span class="comment">### YOUR CODE HERE</span></span><br><span class="line">    g -= np.mean(g)</span><br><span class="line">    out = cross_correlation(f, g)</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">    <span class="comment">### END YOUR CODE</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure>
+<p>但是该方法不能解决光照强度变化的情况。</p>
+<hr>
+<p>一个解决方案是在每一步对图像和模板的像素进行归一化，然后再进行比较</p>
+<p>归一化互相关的数学定义为</p>
+<script type="math/tex; mode=display">(g \star f)[m,n]=\sum_{i,j} \frac{g[i, j]-\overline{g}}{\sigma_g} \cdot \frac{f[m + i, n + j]-\overline{f_{m,n}}}{\sigma_{f_{m,n}}}</script><p>where:</p>
+<ul>
+<li>$f_{m,n}$ is the patch image at position $(m,n)$</li>
+<li>$\overline{f<em>{m,n}}$ is the mean of the patch image $f</em>{m,n}$</li>
+<li>$\sigma<em>{f</em>{m,n}}$ is the standard deviation of the patch image $f_{m,n}$ </li>
+<li>$\overline{g}$ is the mean of the template $g$</li>
+<li>$\sigma_g$ is the standard deviation of the template $g$</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">normalized_cross_correlation</span>(<span class="params">f, g</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot; Normalized cross-correlation of image f and template g.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Normalize the subimage of f and the template g at each step</span></span><br><span class="line"><span class="string">    before computing the weighted sum of the two.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Hint: you should look up useful numpy functions online for calculating </span></span><br><span class="line"><span class="string">          the mean and standard deviation.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        f: numpy array of shape (Hf, Wf).</span></span><br><span class="line"><span class="string">        g: numpy array of shape (Hg, Wg).</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        out: numpy array of shape (Hf, Wf).</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    out = <span class="literal">None</span></span><br><span class="line">    <span class="comment">### YOUR CODE HERE</span></span><br><span class="line">    <span class="comment"># 对g进行归一化</span></span><br><span class="line">    g = (g - np.mean(g)) / np.std(g)</span><br><span class="line"></span><br><span class="line">    Hi, Wi = f.shape</span><br><span class="line">    Hk, Wk = g.shape</span><br><span class="line">    out = np.zeros((Hi, Wi))</span><br><span class="line">    pad_f = zero_pad(f, <span class="built_in">int</span>(Hk / <span class="number">2</span>), <span class="built_in">int</span>(Wk / <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(Hi):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(Wi):</span><br><span class="line">            sub_f = pad_f[i:i + Hk, j:j + Wk]</span><br><span class="line">            sub_f_mean = np.mean(sub_f)</span><br><span class="line">            sub_f_std = np.std(sub_f)</span><br><span class="line">            out[i, j] = np.<span class="built_in">sum</span>(g * (sub_f - sub_f_mean) / sub_f_std)</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">    <span class="comment">### END YOUR CODE</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure>
+<h1 id="卷积与互相关性的比较"><a href="#卷积与互相关性的比较" class="headerlink" title="卷积与互相关性的比较"></a>卷积与互相关性的比较</h1><p><img src="/2023/05/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-%E5%8D%B7%E7%A7%AF%E4%B8%8E%E4%BA%92%E7%9B%B8%E5%85%B3%E6%80%A7/8.png" alt="image-20230518155836268"></p>
+<p><img src="/2023/05/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-%E5%8D%B7%E7%A7%AF%E4%B8%8E%E4%BA%92%E7%9B%B8%E5%85%B3%E6%80%A7/9.png" alt="image-20230518155710828"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://congli01.github.io">Ricco</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://congli01.github.io/2023/05/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-%E5%8D%B7%E7%A7%AF%E4%B8%8E%E4%BA%92%E7%9B%B8%E5%85%B3%E6%80%A7/">https://congli01.github.io/2023/05/16/计算机视觉学习笔记-3-卷积与互相关性/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/cv/">cv</a></div><div class="post_share"><div class="social-share" data-image="/img/profile.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> Donate</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/05/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2-SVD%E4%B8%8EPCA/" title="计算机视觉学习笔记-2-SVD与PCA"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">计算机视觉学习笔记-2-SVD与PCA</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2023/05/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1-%E5%9B%BE%E5%83%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E4%B8%8Enumpy%E5%AE%9E%E7%8E%B0/" title="计算机视觉学习笔记-1-图像的基本操作与numpy实现"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-04</div><div class="title">计算机视觉学习笔记-1-图像的基本操作与numpy实现</div></div></a></div><div><a href="/2023/05/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2-SVD%E4%B8%8EPCA/" title="计算机视觉学习笔记-2-SVD与PCA"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-11</div><div class="title">计算机视觉学习笔记-2-SVD与PCA</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/profile.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ricco</div><div class="author-info__description">Stay hungry,stay foolish</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/congli01" target="_blank" title="Github"><i class="fab fa-github" style="color: #hdhfbb;"></i></a><a class="social-icon" href="mailto:congli200110@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #000000;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%B7%E7%A7%AF"><span class="toc-number">1.</span> <span class="toc-text">卷积</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86%E5%9B%BE%E5%83%8F%E8%A1%A8%E7%A4%BA%E6%88%90%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.</span> <span class="toc-text">将图像表示成函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E7%B3%BB%E7%BB%9F%EF%BC%88%E8%BF%87%E6%BB%A4%E5%99%A8%EF%BC%89"><span class="toc-number">1.2.</span> <span class="toc-text">线性系统（过滤器）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%B7%E7%A7%AF%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.3.</span> <span class="toc-text">卷积的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9B%9B%E5%B1%82%E5%B5%8C%E5%A5%97%E5%BE%AA%E7%8E%AF%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.3.1.</span> <span class="toc-text">使用四层嵌套循环的简单实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%BF%AB%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.3.2.</span> <span class="toc-text">一个更快的实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%92%E7%9B%B8%E5%85%B3%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">互相关性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%92%E7%9B%B8%E5%85%B3%E6%80%A7%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.1.</span> <span class="toc-text">互相关性的实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%B7%E7%A7%AF%E4%B8%8E%E4%BA%92%E7%9B%B8%E5%85%B3%E6%80%A7%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-number">3.</span> <span class="toc-text">卷积与互相关性的比较</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/05/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-3-%E5%8D%B7%E7%A7%AF%E4%B8%8E%E4%BA%92%E7%9B%B8%E5%85%B3%E6%80%A7/" title="计算机视觉学习笔记-3-卷积与互相关性">计算机视觉学习笔记-3-卷积与互相关性</a><time datetime="2023-05-16T07:49:07.000Z" title="Created 2023-05-16 15:49:07">2023-05-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/05/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-2-SVD%E4%B8%8EPCA/" title="计算机视觉学习笔记-2-SVD与PCA">计算机视觉学习笔记-2-SVD与PCA</a><time datetime="2023-05-11T10:29:47.000Z" title="Created 2023-05-11 18:29:47">2023-05-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/05/05/Hexo%E6%98%BE%E7%A4%BAlatex%E5%85%AC%E5%BC%8F%E5%92%8C%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E7%9A%84%E9%97%AE%E9%A2%98/" title="Hexo显示latex公式和显示图片的问题">Hexo显示latex公式和显示图片的问题</a><time datetime="2023-05-05T10:01:56.000Z" title="Created 2023-05-05 18:01:56">2023-05-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/05/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-1-%E5%9B%BE%E5%83%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E4%B8%8Enumpy%E5%AE%9E%E7%8E%B0/" title="计算机视觉学习笔记-1-图像的基本操作与numpy实现">计算机视觉学习笔记-1-图像的基本操作与numpy实现</a><time datetime="2023-05-04T13:56:23.000Z" title="Created 2023-05-04 21:56:23">2023-05-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/05/01/jupyter-notebook%E6%89%BE%E4%B8%8D%E5%88%B0conda%E6%96%B0%E5%BB%BA%E7%9A%84%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E9%97%AE%E9%A2%98/" title="jupyter notebook找不到conda新建的虚拟环境的问题">jupyter notebook找不到conda新建的虚拟环境的问题</a><time datetime="2023-05-01T07:44:04.000Z" title="Created 2023-05-01 15:44:04">2023-05-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Ricco</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a target="_blank" rel="noopener" href="https://butterfly.js.org/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container').forEach(node => {
+            if (node.hasAttribute('display')) {
+              btf.wrap(node, 'div', { class: 'mathjax-overflow' })
+            } else {
+              btf.wrap(node, 'span', { class: 'mathjax-overflow' })
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
